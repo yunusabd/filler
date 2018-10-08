@@ -7,9 +7,11 @@
 
 typedef struct	s_filler
 {
-	int		x;
-	int		y;
+	int		max_x;
+	int		max_y;
 	char	player;
+	char	opponent;
+	char	*map;
 }				t_filler;
 
 # endif
