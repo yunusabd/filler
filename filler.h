@@ -41,6 +41,7 @@ typedef struct	s_filler
 	t_dist	*shortest;
 	t_co	*piece;
 	t_co	*piece_size;
+	t_co	*solution;
 }				t_filler;
 
 /* ------------ DEBUG --------------- */

@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 14:25:27 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/20 15:11:41 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/20 17:33:01 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,20 @@ void	debug(t_filler *data, char *line, char *msg)
 		my = my->next;
 	}
 	fprintf(fd, "-------------\n");
+	my = data->piece;
+	while (my)
+	{
+		fprintf(fd, "piece point: %d %d [%c]\n", my->x, my->y, my->c);
+		my = my->next;
+	}
+	fprintf(fd, "piece size: %d %d\n", data->piece_size->x, data->piece_size->y);
+
 	fclose(fd);
 }
 
 void	output(char *msg)
 {
-	int    fd = open("/dev/ttys004", O_RDWR);
+	int    fd = open("/dev/ttys001", O_RDWR);
 
 	write(fd, "\n", 1);
 	if (msg)

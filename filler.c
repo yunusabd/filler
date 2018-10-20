@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:30:31 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/20 16:10:50 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/20 17:28:25 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,9 +201,16 @@ int		main(int ac, char **av)
 			data->player = ((ft_strstr(line, av[0]))) ? line[10] : 0;
 		loop(line, data);
 	}
-//	ft_printf("12 14\n");
 	create_square(data);
 	calc_distance(data);
+	debug(data, NULL, "Finished calc\n");
 	check_piece(data);
+	if (data->solution)
+	{
+		ft_printf("%d %d\n", data->solution->x, data->solution->y);
+		output("testsetsetestestestset");
+	}
+//	ft_printf("12 14\n");
+//	output("testsetsetestestestset");
 //	print(data, line, "enf od loop\n");
 }
