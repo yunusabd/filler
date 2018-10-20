@@ -43,7 +43,11 @@ typedef struct	s_filler
 	t_co	*piece_size;
 }				t_filler;
 
+/* ------------ DEBUG --------------- */
 void	debug(t_filler *data, char *line, char *msg);
+void	output(char *msg);
+/* ----------- /DEBUG --------------- */
+
 void	print(t_filler *data, char *line, char *msg);
 void	print(t_filler *data, char *line, char *msg);
 void	get_piece_size(t_filler *data, char *line);
@@ -51,5 +55,6 @@ void	print_map(t_filler *data);
 void	add_co(int x, int y, t_co **head, char c);
 void	create_square(t_filler *data);
 void	calc_distance(t_filler *data);
-
+void	check_piece(t_filler *data);
+char	map(t_filler *data, int x, int y);
 # endif

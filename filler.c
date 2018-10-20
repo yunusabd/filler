@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:30:31 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/17 17:15:30 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/20 16:10:50 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ char	map(t_filler *data, int x, int y)
 }
 
 /*
-**	Get four points (upper, lower, left, right) for the maximum extent of the opponent.
+**	Get four points (upper, lower, left, right) for the maximum
+**	extent of the opponent.
 */
 
 void	get_opponent(t_filler *data, int y, int x)
@@ -112,6 +113,7 @@ void	print_map(t_filler *data)
 	fclose(fd);
 }
 
+/*
 int		check_piece(t_filler *data, int x, int y)
 {
 	int		overlap;
@@ -135,6 +137,7 @@ int		check_piece(t_filler *data, int x, int y)
 		return (1);
 	return (0);
 }
+*/
 
 void	get_piece(t_filler *data, char *line)
 {
@@ -142,10 +145,11 @@ void	get_piece(t_filler *data, char *line)
 	int		j;
 
 	i = 0;
-	while (get_next_line(0, &line) > 1)
+	while (i < data->piece_size->y)
 	{
+		get_next_line(0, &line);
 		j = 0;
-		while (line[j])
+		while (line && line[j])
 		{
 			add_co(j, i, &(data->piece), line[j]);
 			j++;
@@ -160,13 +164,15 @@ void	loop(char *line, t_filler *data)
 
 	while ((res = get_next_line(0, &line)) > 0)
 	{
+		if (!line)
+			return ;
 		if (line[0] > 47 && line[0] < 58)
 			parse_line(data, line);
 		else if (ft_strncmp(line, "Piece", 5) == 0)
 		{
 			get_piece_size(data, line);
 			get_piece(data, line);
-			break ;
+			return ;
 		}
 		if (data->player && data->max_x == 0)
 		{
@@ -195,8 +201,9 @@ int		main(int ac, char **av)
 			data->player = ((ft_strstr(line, av[0]))) ? line[10] : 0;
 		loop(line, data);
 	}
-	ft_printf("12 14\n");
+//	ft_printf("12 14\n");
 	create_square(data);
 	calc_distance(data);
-	print(data, line, "enf od loop\n");
+	check_piece(data);
+//	print(data, line, "enf od loop\n");
 }
