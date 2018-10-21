@@ -26,6 +26,14 @@ static void	add_dist(t_co *me, t_co *enemy, int dist, t_filler *data)
 	data->dist = new;
 }
 
+void	sort_distance(t_filler *data)
+{
+	t_dist	*tmp;
+
+	tmp = data->dist;
+
+}
+
 void	calc_distance(t_filler *data)
 {
 	t_co	*tmp;
@@ -38,14 +46,10 @@ void	calc_distance(t_filler *data)
 		tmp2 = data->my;
 		while (tmp2)
 		{
-			add_dist(tmp2, tmp, (ABS(tmp->x - tmp2->x)
-						+ ABS(tmp->y - tmp2->y)), data);
-			if (data->shortest && ((ABS(tmp->x - tmp2->x)
-						+ ABS(tmp->y - tmp2->y)) < data->shortest->dist))
-				data->shortest = data->dist;
-			else if (!data->shortest)
-				data->shortest = data->dist;
-			tmp2 = tmp2->next;
+			add_dist(tmp2, tmp,
+			ABS(tmp->x - tmp2->x)
+			+ ABS(tmp->y - tmp2->y), data);
+			tmp2 = tmp2->next;	
 		}
 		tmp = tmp->next;
 	}

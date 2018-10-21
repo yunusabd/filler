@@ -47,6 +47,7 @@ typedef struct	s_filler
 /* ------------ DEBUG --------------- */
 void	debug(t_filler *data, char *line, char *msg);
 void	output(char *msg);
+void	output_c(char msg);
 /* ----------- /DEBUG --------------- */
 
 void	print(t_filler *data, char *line, char *msg);

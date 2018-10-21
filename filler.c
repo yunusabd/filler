@@ -79,17 +79,17 @@ void	parse_line(t_filler *data, char *line)
 	{
 		if (line[i] == data->player || ft_tolower(line[i]) == data->player)
 		{
-			insert_map(data, start, i, data->player);
+			insert_map(data, i, start, data->player);
 			add_co(i, start, &data->my, 0);
 		}
 		else if (line[i] == data->opponent || ft_tolower(line[i]) == data->opponent)
 		{
-			insert_map(data, start, i, data->opponent);
+			insert_map(data, i, start, data->opponent);
 			add_co(i, start, &data->enemy, 0);
 			get_opponent(data, start, i);
 		}
 		else
-			insert_map(data, start, i, '.');
+			insert_map(data, i, start, '.');
 		i++;
 	}
 }
@@ -139,6 +139,21 @@ int		check_piece(t_filler *data, int x, int y)
 }
 */
 
+void	free_co(t_filler *data, t_co **head)
+{
+	t_co	*tmp;
+	t_co	*tmp2;
+
+	tmp = *head;
+	while (tmp)
+	{
+		tmp2 = tmp->next;
+		free(tmp);
+		tmp = tmp2;
+	}
+	*head = NULL;
+}
+
 void	get_piece(t_filler *data, char *line)
 {
 	int		i;
@@ -161,18 +176,34 @@ void	get_piece(t_filler *data, char *line)
 void	loop(char *line, t_filler *data)
 {
 	int	res;
+	int	i = 0;
 
-	while ((res = get_next_line(0, &line)) > 0)
+	while ((res = get_next_line(0, &line)) > -1)
 	{
-		if (!line)
-			return ;
+		char *nb = ft_itoa(i++);
+		output(ft_strjoin("reading line ", nb));
 		if (line[0] > 47 && line[0] < 58)
 			parse_line(data, line);
 		else if (ft_strncmp(line, "Piece", 5) == 0)
 		{
+			output("trying pieace");
 			get_piece_size(data, line);
 			get_piece(data, line);
-			return ;
+			create_square(data);
+			calc_distance(data);
+			check_piece(data);
+			free_co(data, &data->piece);
+			free_co(data, &data->square);
+			free_co(data, &data->piece_size);
+			free_co(data, &data->solution);
+			free_co(data, &data->my);
+			free_co(data, &data->enemy);
+			free(data->dist);
+			data->dist = NULL;
+			free(data->shortest);
+			data->shortest = NULL;
+			output("all freed");
+			continue ;
 		}
 		if (data->player && data->max_x == 0)
 		{
@@ -201,16 +232,4 @@ int		main(int ac, char **av)
 			data->player = ((ft_strstr(line, av[0]))) ? line[10] : 0;
 		loop(line, data);
 	}
-	create_square(data);
-	calc_distance(data);
-	debug(data, NULL, "Finished calc\n");
-	check_piece(data);
-	if (data->solution)
-	{
-		ft_printf("%d %d\n", data->solution->x, data->solution->y);
-		output("testsetsetestestestset");
 	}
-//	ft_printf("12 14\n");
-//	output("testsetsetestestestset");
-//	print(data, line, "enf od loop\n");
-}

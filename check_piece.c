@@ -22,19 +22,19 @@ static int	check_position(t_filler *data, int x, int y)
 	output("check position");
 	while (tmp)
 	{
-		if (map(data, tmp->x + x, tmp->y + y) == data->player && tmp->c == data->player)
-		{
-			output("overlap");
+		if (map(data, tmp->x + x, tmp->y + y) == data->player && tmp->c == '*')
 			overlap++;
-		}
 		else if (map(data, tmp->x + x, tmp->y + y) == '.' || tmp->c == '.')
-			(void)0;
+		{
+			output("dot");
+		}
 		else
 			return (0);
 		if (overlap > 1)
 			return (0);
 		tmp = tmp->next;
 	}
+	output("ended checking");
 	if (overlap == 1)
 		return (1);
 	return (0);
@@ -47,28 +47,42 @@ static int	check_position(t_filler *data, int x, int y)
 void	check_piece(t_filler *data)
 {
 	int		overlap;
+	int	max_x;
+	int	max_y;
+	int	max;
 	t_co	*tmp;
 	t_co	*start;
 
 	overlap = 0;
 	tmp = data->piece;
-	start = (t_co*)malloc(sizeof(*start));
-	start->x = data->shortest->me->x - data->piece_size->x;
-	start->y = data->shortest->me->y - data->piece_size->y;
-	while (start->x <= data->shortest->me->x + data->piece_size->x
-		&& (start->y < data->shortest->me->y + data->piece_size->y))
+	char *nb = ft_itoa(data->shortest->me->x);
+	output(ft_strjoin("shortest x: ", nb));
+	nb = ft_itoa(data->shortest->me->y);
+	output(ft_strjoin("shortest y", nb));
+	start = (t_co*)malloc(sizeof(t_co));
+	max_x = data->shortest->me->x + data->piece_size->x - 1;
+	max_y = data->shortest->me->y + data->piece_size->y - 1;
+	start->x = data->shortest->me->x - data->piece_size->x + 1;
+	start->y = data->shortest->me->y - data->piece_size->y + 1;
+	while (start->x <= max_x && start->y <= max_y)
 	{
-		output("while");
-		if (start->x == data->shortest->me->x + data->piece_size->x)
+		if (start->x == max_x)
 		{
 			start->y++;
 			start->x = data->shortest->me->x - data->piece_size->x;
 		}
+		nb = ft_itoa(data->piece_size->x);
+		output(ft_strjoin("piece_size->x: ", nb));
+		nb = ft_itoa(data->piece_size->y);
+		output(ft_strjoin("data->piece_size->y", nb));
+		nb = ft_itoa(start->x);
+		output(ft_strjoin("start->x: ", nb));
+		nb = ft_itoa(start->y);
+		output(ft_strjoin("start->y", nb));
 		if (check_position(data, start->x, start->y))
 		{
-			add_co(start->x, start->y, &data->solution, 0);
-			output("huhuhuhu");
-			ft_printf("12 14\n");
+			output("found");
+			ft_printf("%d %d\n", start->y, start->x);
 			return ;
 		}
 		start->x++;

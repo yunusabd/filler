@@ -74,20 +74,27 @@ void	debug(t_filler *data, char *line, char *msg)
 
 void	output(char *msg)
 {
-	int    fd = open("/dev/ttys001", O_RDWR);
+	FILE    *fd = fopen("dot", "a");
 
-	write(fd, "\n", 1);
 	if (msg)
-		dprintf(fd, "debug msg: %s", msg);
-	printf("-------------\n");
-	close(fd);
+		fprintf(fd, "debug msg: %s\n", msg);
+	fclose(fd);
+}
+
+void	output_c(char msg)
+{
+	FILE    *fd = fopen("dot", "a");
+
+	if (msg)
+		fprintf(fd, "debug msg: %c\n", msg);
+	fclose(fd);
 }
 
 
 
 void	print(t_filler *data, char *line, char *msg)
 {
-	int    fd = open("/dev/ttys004", O_RDWR);
+	int    fd = open("/dev/ttys003", O_RDWR);
 
 	write(fd, "sasd\n", 5);
 	int		i = 0;
