@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:30:31 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/20 17:28:25 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/22 17:30:32 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	insert_map(t_filler *data, int x, int y, char c)
 
 char	map(t_filler *data, int x, int y)
 {
-	if (x <= data->max_x && y <= data->max_y)
+	if (x >= 0 && y >=0 && x < data->max_x && y < data->max_y)
 		return (data->map[data->max_x * x + y]);
 	else
 		return (-1);
@@ -56,14 +56,14 @@ char	map(t_filler *data, int x, int y)
 
 void	get_opponent(t_filler *data, int y, int x)
 {
-	if (data->up == -1 || y <= data->up)
-		data->up = (y == 0) ? 0 : y - 1;
-	if (data->lo == -1 || y >= data->lo)
-		data->lo = (y == 0) ? 0 : y + 1;
-	if (data->le == -1 || x <= data->le)
-		data->le = (x == 0) ? 0 : x - 1;
-	if (data->ri == -1 || x >= data->ri)
-		data->ri = (x == 0) ? 0 : x + 1;
+	if (y != 0 && y < data->up)
+		data->up = y - 1;
+	if (y != 0 && y > data->lo)
+		data->lo = y + 1;
+	if (x != 0 && x < data->le)
+		data->le = x - 1;
+	if (x != 0 && x > data->ri)
+		data->ri = x + 1;
 }
 
 void	parse_line(t_filler *data, char *line)
@@ -166,10 +166,24 @@ void	get_piece(t_filler *data, char *line)
 		j = 0;
 		while (line && line[j])
 		{
-			add_co(j, i, &(data->piece), line[j]);
+			if (line[j] == '*')
+				add_co(j, i, &(data->piece), line[j]);
 			j++;
 		}
 		i++;
+	}
+}
+
+void	print_square(t_filler *data)
+{
+	t_co	*tmp;
+
+	tmp = data->square;
+	while (tmp)
+	{
+		output(ft_strjoin(ft_strjoin("square x: ", ft_itoa(tmp->x)), 
+					ft_strjoin(", y: ", ft_itoa(tmp->y))));
+		tmp = tmp->next;
 	}
 }
 
@@ -178,7 +192,7 @@ void	loop(char *line, t_filler *data)
 	int	res;
 	int	i = 0;
 
-	while ((res = get_next_line(0, &line)) > -1)
+	while ((res = get_next_line(0, &line)) > 0)
 	{
 		char *nb = ft_itoa(i++);
 		output(ft_strjoin("reading line ", nb));
@@ -190,8 +204,10 @@ void	loop(char *line, t_filler *data)
 			get_piece_size(data, line);
 			get_piece(data, line);
 			create_square(data);
+			print_square(data);
 			calc_distance(data);
-			check_piece(data);
+			sort_distance(data);
+			check_pieces(data);
 			free_co(data, &data->piece);
 			free_co(data, &data->square);
 			free_co(data, &data->piece_size);

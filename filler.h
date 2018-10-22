@@ -57,6 +57,7 @@ void	print_map(t_filler *data);
 void	add_co(int x, int y, t_co **head, char c);
 void	create_square(t_filler *data);
 void	calc_distance(t_filler *data);
-void	check_piece(t_filler *data);
+void	sort_distance(t_filler *data);
+void	check_pieces(t_filler *data);
 char	map(t_filler *data, int x, int y);
 # endif
