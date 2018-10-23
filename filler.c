@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:30:31 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/22 17:30:32 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/23 11:58:55 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,14 @@ char	map(t_filler *data, int x, int y)
 
 void	get_opponent(t_filler *data, int y, int x)
 {
-	if (y != 0 && y < data->up)
+	output(ft_strjoin(ft_strjoin("square calc, x: ", ft_itoa(x)), ft_strjoin(" y: ", ft_itoa(y))));
+	if (y > 0 && (y < data->up || data->up == -1))
 		data->up = y - 1;
-	if (y != 0 && y > data->lo)
+	if (y > 0 && (y > data->lo || data->lo == -1))
 		data->lo = y + 1;
-	if (x != 0 && x < data->le)
+	if (x > 0 && (x < data->le || data->le == -1))
 		data->le = x - 1;
-	if (x != 0 && x > data->ri)
+	if (x > 0 && (x > data->ri || data->ri == -1))
 		data->ri = x + 1;
 }
 
@@ -200,7 +201,6 @@ void	loop(char *line, t_filler *data)
 			parse_line(data, line);
 		else if (ft_strncmp(line, "Piece", 5) == 0)
 		{
-			output("trying pieace");
 			get_piece_size(data, line);
 			get_piece(data, line);
 			create_square(data);

@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 15:19:07 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/22 17:36:56 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/23 11:49:48 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,5 @@ void	check_pieces(t_filler *data)
 		ft_printf("0 0\n");
 	}
 	output("tried all positions");
+	debug(data, NULL, NULL);
 }

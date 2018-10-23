@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/09 16:13:31 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/22 17:51:04 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/23 11:51:13 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	create_square(t_filler *data)
 			add_co(start->x, start->y, &data->square, 0);
 		start->x++;
 	}
-	start->x = data->le + 1;
+	start->x = data->le;
 	start->y = data->up;
 	while (start->x > -1 && start->x < data->ri)
 	{

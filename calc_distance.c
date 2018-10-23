@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 18:00:04 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/22 17:38:13 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/23 15:01:08 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,13 @@ void	sort_distance(t_filler *data)
 		sort_distance(data);
 }
 
-void	calc_distance(t_filler *data)
+static int		eucl_distance(t_co *a, t_co *b)
+{
+	return (ft_sqrt(ABS(a->x - b->x) * ABS(a->x - b->x)
+		+ ABS(a->y - b->y) * ABS(a->y - b->y)));
+}
+
+void			calc_distance(t_filler *data)
 {
 	t_co	*tmp;
 	t_co	*tmp2;
@@ -88,9 +94,7 @@ void	calc_distance(t_filler *data)
 		tmp2 = data->my;
 		while (tmp2)
 		{
-			add_dist(tmp2, tmp,
-			ABS(tmp->x - tmp2->x)
-			+ ABS(tmp->y - tmp2->y), data);
+			add_dist(tmp2, tmp, eucl_distance(tmp, tmp2), data);
 			tmp2 = tmp2->next;	
 		}
 		tmp = tmp->next;
