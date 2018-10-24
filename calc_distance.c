@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 18:00:04 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/23 15:01:08 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/24 14:57:52 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,14 @@ void			calc_distance(t_filler *data)
 
 	tmp = data->square;
 	tmp2 = data->my;
+	output("calc distance");
 	while (tmp)
 	{
 		tmp2 = data->my;
 		while (tmp2)
 		{
 			add_dist(tmp2, tmp, eucl_distance(tmp, tmp2), data);
+			output("added distance");
 			tmp2 = tmp2->next;	
 		}
 		tmp = tmp->next;

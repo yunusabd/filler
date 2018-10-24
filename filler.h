@@ -6,6 +6,8 @@
 # include "libft/includes/get_next_line.h"
 
 # define ABS(x) ((x < 0) ? -(x) : (x))
+# define ME	1
+# define EN	-1
 
 typedef	struct	s_co
 {
@@ -29,7 +31,7 @@ typedef struct	s_filler
 	int		max_y;
 	char	player;
 	char	opponent;
-	char	*map;
+	int		*map;
 	int		up;
 	int		lo;
 	int		le;
@@ -59,5 +61,5 @@ void	create_square(t_filler *data);
 void	calc_distance(t_filler *data);
 void	sort_distance(t_filler *data);
 void	check_pieces(t_filler *data);
-char	map(t_filler *data, int x, int y);
+int		map(t_filler *data, int x, int y);
 # endif

@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/15 14:25:27 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/20 17:33:01 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/24 15:32:09 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	debug(t_filler *data, char *line, char *msg)
 	t_dist	*d;
 	t_co	*my;
 
-	if (msg)
+/*	if (msg)
 		fprintf(fd, "msg: %s, ", msg);
 	fprintf(fd, "line: %s\n", line);
 	fprintf(fd, "x: %d\n", data->max_x);
@@ -38,6 +38,7 @@ void	debug(t_filler *data, char *line, char *msg)
 	fprintf(fd, "\n");
 	fprintf(fd, "player: %c\n", data->player);
 	fprintf(fd, "opponent: %c\n", data->opponent);
+	*/
 	fprintf(fd, "up: %d, down: %d, left: %d, right: %d\n", data->up, data->lo, data->le, data->ri);
 	tmp = data->square;
 	while (tmp)

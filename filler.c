@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/19 11:30:31 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/23 11:58:55 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/10/24 15:37:40 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,18 @@ void	create_map(t_filler *data, char *line)
 		data->max_y = ft_atoi(ft_strchr(line, ' '));
 		data->max_x = ft_atoi(ft_strrchr(line, ' '));
 	}
-	data->map = (char*)malloc(sizeof(char) * (data->max_x + 1)
-			* (data->max_y + 1) + data->max_y);
-	ft_bzero(data->map, sizeof(char) * (data->max_x + 1)
-			* (data->max_y + 1) + data->max_y);
+	data->map = (int*)malloc(sizeof(int) * data->max_x
+			* data->max_y + data->max_y);
+	ft_bzero(data->map, sizeof(char) * data->max_x
+			* data->max_y + data->max_y);
 }
 
-void	insert_map(t_filler *data, int x, int y, char c)
+void	insert_map(t_filler *data, int x, int y, int n)
 {
-	data->map[data->max_x * x + y] = c;
+	data->map[data->max_x * x + y] = n;
 }
 
-char	map(t_filler *data, int x, int y)
+int		map(t_filler *data, int x, int y)
 {
 	if (x >= 0 && y >=0 && x < data->max_x && y < data->max_y)
 		return (data->map[data->max_x * x + y]);
@@ -57,14 +57,14 @@ char	map(t_filler *data, int x, int y)
 void	get_opponent(t_filler *data, int y, int x)
 {
 	output(ft_strjoin(ft_strjoin("square calc, x: ", ft_itoa(x)), ft_strjoin(" y: ", ft_itoa(y))));
-	if (y > 0 && (y < data->up || data->up == -1))
-		data->up = y - 1;
-	if (y > 0 && (y > data->lo || data->lo == -1))
-		data->lo = y + 1;
-	if (x > 0 && (x < data->le || data->le == -1))
-		data->le = x - 1;
-	if (x > 0 && (x > data->ri || data->ri == -1))
-		data->ri = x + 1;
+	if (y >= 0 && (y < data->up || data->up == -1))
+		data->up = (y == 0) ? 0 : y - 1;
+	if (y >= 0 && (y > data->lo || data->lo == -1))
+		data->lo = (y == 0) ? 0 : y + 1;
+	if (x >= 0 && (x < data->le || data->le == -1))
+		data->le = (x == 0) ? 0 : x - 1;
+	if (x >= 0 && (x > data->ri || data->ri == -1))
+		data->ri = (x == 0) ? 0 : x + 1;
 }
 
 void	parse_line(t_filler *data, char *line)
@@ -248,4 +248,4 @@ int		main(int ac, char **av)
 			data->player = ((ft_strstr(line, av[0]))) ? line[10] : 0;
 		loop(line, data);
 	}
-	}
+}
