@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 15:19:07 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/23 11:49:48 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/11/12 20:14:14 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,12 @@ static int	check_position(t_filler *data, int x, int y)
 
 static int	try_piece(t_filler *data, t_dist *shortest)
 {
-	int		overlap;
 	int	max_x;
 	int	max_y;
 	int	max;
 	t_co	*tmp;
 	t_co	*start;
 
-	overlap = 0;
 	tmp = data->piece;
 	char *nb = ft_itoa(shortest->me->x);
 	output(ft_strjoin("shortest x: ", nb));
