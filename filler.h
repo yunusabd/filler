@@ -52,6 +52,11 @@ void	output(char *msg);
 void	output_c(char msg);
 /* ----------- /DEBUG --------------- */
 
+/* ----------- MERGE SORT ----------- */
+int		compare(t_dist *a, t_dist *b);
+t_dist	*merge_sort_list_recursive(t_dist *list, int (*compare)(t_dist *one, t_dist *two));
+/* ----------- /MERGE SORT ---------- */
+
 void	print(t_filler *data, char *line, char *msg);
 void	print(t_filler *data, char *line, char *msg);
 void	get_piece_size(t_filler *data, char *line);

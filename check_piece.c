@@ -6,7 +6,7 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/20 15:19:07 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/11/12 20:14:14 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/11/13 10:12:16 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static int	try_piece(t_filler *data, t_dist *shortest)
 	max_y = shortest->me->y + data->piece_size->y;
 	start->x = shortest->me->x - data->piece_size->x;
 	start->y = shortest->me->y - data->piece_size->y;
-	while (start->x <= max_x && start->y <= max_y)
+	while (start->x < max_x && start->y < max_y)
 	{
 		if (check_position(data, start->x, start->y))
 		{

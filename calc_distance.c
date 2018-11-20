@@ -6,11 +6,12 @@
 /*   By: yabdulha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/16 18:00:04 by yabdulha          #+#    #+#             */
-/*   Updated: 2018/10/24 14:57:52 by yabdulha         ###   ########.fr       */
+/*   Updated: 2018/11/20 18:51:15 by yabdulha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+#include <math.h>
 
 static void	add_dist(t_co *me, t_co *enemy, int dist, t_filler *data)
 {
@@ -55,6 +56,8 @@ void	sort_distance(t_filler *data)
 	t_dist	*tmp;
 	t_dist	*before = NULL;
 
+	data->dist = merge_sort_list_recursive(data->dist, compare);
+	/*
 	tmp = data->dist;
 	while (tmp && tmp->next)
 	{
@@ -73,11 +76,12 @@ void	sort_distance(t_filler *data)
 	}
 	if (!(check_sorted(data->dist)))
 		sort_distance(data);
+		*/
 }
 
 static int		eucl_distance(t_co *a, t_co *b)
 {
-	return (ft_sqrt(ABS(a->x - b->x) * ABS(a->x - b->x)
+	return (sqrt(ABS(a->x - b->x) * ABS(a->x - b->x)
 		+ ABS(a->y - b->y) * ABS(a->y - b->y)));
 }
 
